@@ -1,6 +1,6 @@
 import React from "react";
 
-const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
+const InvoiceForm = ({ formData, setFormData, onDownloadClick,showalert }) => {
   const handleChange = (section, field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -10,7 +10,42 @@ const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
       },
     }));
   };
+const onDownload = () => {
+  const {
+    sender, receiver, invoiceInfo, items
+  } = formData;
 
+  const isEmpty = (value) => !value || value.trim() === '';
+
+  const missingFields = [];
+
+  if (isEmpty(sender.name)) missingFields.push("Sender Name");
+  if (isEmpty(sender.address)) missingFields.push("Sender Address");
+  if (isEmpty(sender.phone)) missingFields.push("Sender Phone");
+  if (isEmpty(sender.email)) missingFields.push("Sender Email");
+
+  if (isEmpty(receiver.name)) missingFields.push("Receiver Name");
+  if (isEmpty(receiver.address)) missingFields.push("Receiver Address");
+  if (isEmpty(receiver.phone)) missingFields.push("Receiver Phone");
+  if (isEmpty(receiver.email)) missingFields.push("Receiver Email");
+
+  if (isEmpty(invoiceInfo.number)) missingFields.push("Invoice Number");
+  if (isEmpty(invoiceInfo.date)) missingFields.push("Invoice Date");
+  if (isEmpty(invoiceInfo.due)) missingFields.push("Due Date");
+
+  items.forEach((item, index) => {
+    if (isEmpty(item.name)) {
+      missingFields.push(`Item ${index + 1} Name`);
+    }
+  });
+
+  if (missingFields.length > 0) {
+    showalert(`Please fill in the following fields:\n- ${missingFields.join("\n- ")}`,"error");
+    return;
+  }
+  // continue to download
+  onDownloadClick(); // or your modal logic
+};
   const handleItemChange = (index, field, value) => {
     const newItems = [...formData.items];
     newItems[index][field] = field === "name" ? value : parseFloat(value);
@@ -100,7 +135,7 @@ const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
       </div>
 
       <button
-        onClick={onDownloadClick}
+        onClick={onDownload}
         className="w-full mt-4 bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600"
       >
         Preview & Download Invoice
