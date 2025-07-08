@@ -91,15 +91,28 @@ const InvoicePreview = ({ formData }) => {
           </tbody>
         </table>
 
-        <div className="text-right space-y-1 mt-2">
-          <div>Subtotal: {currency}{subtotal.toFixed(2)}</div>
-          <div>Tax ({taxRate}%): {currency}{taxAmount.toFixed(2)}</div>
-          <div>Fees: {currency}{parseFloat(fees).toFixed(2)}</div>
-          <div>Discount: -{currency}{parseFloat(discount).toFixed(2)}</div>
-          <div className="font-bold text-lg bg-orange-500 text-white inline-block px-4 py-2 mt-2">
-            TOTAL: {currency}{total.toFixed(2)}
-          </div>
-        </div>
+     <div className="text-right space-y-1 mt-2">
+  <div className="grid grid-cols-2">
+    <span className="text-left">Subtotal:</span>
+    <span>{currency}{subtotal.toFixed(2)}</span>
+  </div>
+  <div className="grid grid-cols-2">
+    <span className="text-left">Tax ({taxRate}%):</span>
+    <span>{currency}{taxAmount.toFixed(2)}</span>
+  </div>
+  <div className="grid grid-cols-2">
+    <span className="text-left">Fees:</span>
+    <span>{currency}{parseFloat(fees).toFixed(2)}</span>
+  </div>
+  <div className="grid grid-cols-2">
+    <span className="text-left">Discount:</span>
+    <span>-{currency}{parseFloat(discount).toFixed(2)}</span>
+  </div>
+  <div className="grid grid-cols-2 font-bold text-lg bg-orange-500 text-white px-4 py-2 mt-2 rounded">
+    <span className="text-left">TOTAL:</span>
+    <span>{currency}{total.toFixed(2)}</span>
+  </div>
+</div>
 
         {terms && (
           <div>
