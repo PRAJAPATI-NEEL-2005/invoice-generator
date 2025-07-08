@@ -50,6 +50,7 @@ const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
         <input
           type="number"
           value={formData.taxRate}
+          min="0"
           onChange={(e) =>
             setFormData({ ...formData, taxRate: parseFloat(e.target.value) })
           }
@@ -187,6 +188,7 @@ const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
             <input
               type="text"
               placeholder="Invoice number"
+              required
               value={formData.invoiceInfo.number}
               onChange={(e) =>
                 handleChange("invoiceInfo", "number", e.target.value)
@@ -238,6 +240,7 @@ const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
             <input
               type="text"
               placeholder="Item name"
+              required
               value={item.name}
               onChange={(e) =>
                 handleItemChange(index, "name", e.target.value)
@@ -248,6 +251,8 @@ const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
               type="number"
               placeholder="Quantity"
               value={item.quantity}
+              min="1"
+              required
               onChange={(e) =>
                 handleItemChange(index, "quantity", e.target.value)
               }
@@ -257,6 +262,7 @@ const InvoiceForm = ({ formData, setFormData, onDownloadClick }) => {
               type="number"
               placeholder="Price"
               value={item.price}
+              min="0"
               onChange={(e) =>
                 handleItemChange(index, "price", e.target.value)
               }
