@@ -94,7 +94,7 @@ const onDownload = () => {
       </div>
 
       <div>
-        <label>Fees</label>
+        <label>Addition Charges({formData.currency})</label>
         <input
           type="number"
           value={formData.fees}
@@ -106,7 +106,7 @@ const onDownload = () => {
       </div>
 
       <div>
-        <label>Discount</label>
+        <label>Discount({formData.currency})</label>
         <input
           type="number"
           value={formData.discount}
@@ -177,10 +177,22 @@ const onDownload = () => {
             className="input w-full"
           />
         </div>
-        <div className="text-start ml-4">
-          <label className="block text-sm font-medium mb-1">Upload Logo:</label>
-          <input type="file" accept="image/*" onChange={handleLogoUpload} />
-        </div>
+       <div className="text-start ml-4">
+        {formData.logo && (
+    <div className="mt-3">
+      <img
+        src={formData.logo}
+        alt="Uploaded Logo"
+        className="h-16 w-auto object-contain border rounded shadow"
+      />
+    </div>
+  )}
+  <label className="block text-sm font-medium mb-1">Upload Logo:</label>
+   
+  <input type="file" accept="image/*" onChange={handleLogoUpload} />
+
+ 
+</div>
       </div>
 
       {/* Receiver & Invoice Info */}
