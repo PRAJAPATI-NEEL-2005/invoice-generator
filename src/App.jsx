@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InvoiceForm from "./components/InvoiceForm";
 import InvoicePreview from "./components/InvoicePreview";
-
+import Alert from "./components/Alert";
 function App() {
   const [formData, setFormData] = useState({
     items: [{ name: "Item 1", quantity: 1, price: 0 }],
@@ -15,7 +15,17 @@ function App() {
     fees: 0,
     discount: 0
   });
+ const [alert, setAlert] = useState(null);
+  const showAlert = (msg, type) => {
+    setAlert({
+      message: msg,
+      type: type,
+    });
 
+    setTimeout(() => {
+      setAlert(null);
+    }, 1000);
+  };
   const [showPreview, setShowPreview] = useState(false);
 
   return (
@@ -24,9 +34,10 @@ function App() {
       <InvoiceForm
         formData={formData}
         setFormData={setFormData}
+        showalert={showAlert}
         onDownloadClick={() => setShowPreview(true)}
       />
-
+   <Alert alert={alert}></Alert>
       {showPreview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg max-w-4xl w-full relative overflow-y-auto max-h-[90vh]">
