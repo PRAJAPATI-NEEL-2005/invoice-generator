@@ -1,13 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   @apply bg-gray-50 text-gray-800;
 }
+
 .scroll-hide {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE 10+ */
 }
+
 .scroll-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+/* Custom animation for alert component */
+@keyframes shrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+.animate-shrink {
+  animation-name: shrink;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* Custom styles for form elements */
+.input {
+  @apply w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all;
+}
+
+/* Dark mode transitions */
+.dark-transition {
+  @apply transition-colors duration-300;
+}
+
+/* Print styles */
+@media print {
+  body {
+    @apply bg-white text-black;
+  }
+  
+  button, .no-print {
+    display: none !important;
+  }
 }
